@@ -35,5 +35,5 @@ The main menu of the game which let the user to select one of three option, firs
 The letsplay method is execute the main menu of the program, in option one (new start) let user enter his/her choices and let the computer generating the choice by the random function that execute from computer class, then compare it together to have result by using list, tuples and dictionary to have winner and lost. In option two (load the game) using try and except to retrieve the last score saved in text file , and finally option three (exit) to exit the program. 
 
 ### Notice
-create text file named "  game_test.txt "
+create text to save the game session and retrive ,  name file  "  game_test.txt "
 
