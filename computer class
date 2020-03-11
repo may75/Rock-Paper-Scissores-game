@@ -1,0 +1,23 @@
+"""
+
+Program:  Rock, Paper and scissor game
+Computer Class
+
+"""
+
+import random
+    
+"""
+
+This class is a representation of the computer to generate the random move. 
+
+"""
+
+class Computer:
+        
+    def move(self):
+        selection_list_main = ['ROCK', 'PAPER', 'SCISSORS']
+        moves = random.choice(selection_list_main)
+        return moves  
+    
+    
