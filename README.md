@@ -16,7 +16,7 @@ This the program menu and user have to enter his choice..
 *****************************************************************
 
 
-•	Game rules:
+### Game rules:
           ** The user play against the computer
           ** The first one who scores 3 points WINS the game!
           ** If you want to save your game, just type 'save'.
