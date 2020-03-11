@@ -1,0 +1,198 @@
+"""
+May Yousif
+Program: Rock, Paper and scissor game
+
+>> It is a very popular and easily memorized rule determines the winner:
+    “Rock breaks scissors, scissors cuts paper, paper covers rock.” It contains 
+    one class and two method and Inside the while loop and if statement to make
+    flexible choice to the user and then for or generating the choice of the 
+    computer by used the random function. if statement for comparing the 
+    two choices. Depending upon the rules the winner is selected.
+"""
+
+# import computer Class
+import computer
+
+#  tuples list of win combinations between Rock, Paper and Scissors
+win_list_main = [('ROCK', 'SCISSORS'),  # who can be defeated by ROCK
+                ('SCISSORS', 'PAPER'),  # who can be defeated by SCISSORS
+                ('PAPER', 'ROCK')]  # who can be defeated by PAPER
+#  list of selections
+selection_list_main = ['ROCK', 'PAPER', 'SCISSORS']
+
+#  use Dictionary that to saves wins of both player and computer, and ties
+result_count = {'player':0, 'computer':0, 'ties':0}
+
+
+myComp = computer.Computer()
+
+
+
+    
+def welcome():
+  """ Main menu for the Game"""
+  while True:
+    option = input(
+      "************** Welcome to my Rock-Paper-Scissors Games **********"
+    "\n*                           OPTIONS                             *"
+    "\n* [1] - Start new game                                          *"
+    "\n* [2] - Load the game                                           *"
+    "\n* [3] - Exit                                                    *"
+    "\n*****************************************************************"
+    "\n\n Please select an option (1 , 2 and 3): " )
+    
+# if options selected, it will call lets_play function
+    
+    if option == '1': # if option is 1 , start the game  
+        letsplay(option)
+        
+    elif option == '2': # if option is 2, Load the game
+        letsplay(option)
+       
+    elif option == '3':  # if option is 2, exit the game 
+        print("Bye Bye, See You again!")
+        break
+# if there's an invalid option, the menu will start again      
+    else:  
+      input("Invalid option. Try again ... Please press ENTER to continue")
+      
+# function sets which game is going to be played based on the option selected   
+
+def letsplay(option):
+    """ letsplay method execute the functions for option 1 ,2 ,3 and 4 """
+    
+    result_count = {'player':0, 'computer':0, 'ties':0}
+
+# option 1 to execute the new game
+    if option == '1':  
+        intro = ("\n Welcome to Rock - Paper - Scissors game!")  
+        option_help = ("\n I. This game is simple and goes as following:"  
+          "\n \t** You can choose between: Rock, Paper or Scissors."
+          "\n\n II. You must take in consideration that:"
+          "\n \t** Paper covers Rock."
+          "\n \t** Scissors cut Paper."
+          "\n \t** Rock crushers Scissors."
+          "\n\n III. Notes:"
+          "\n \t** The first one that scores 3 points WINS the game!"
+          "\n \t** If you want to save your game, just type 'save'."
+          "\n \t** If you forgot the rules, just type 'help'."
+          "\n \t** If you want to quit the game  and go to main menu"\
+                     " just type 'quit'."
+          "\n \t** If the user want to load the pervious game can choose"\
+                   " option 2 from the main menu"
+          "\n \t** If user want to exit the program can choose option 3 from"\
+                    " the main menu.\n")
+        
+# selections are assigned based on the game            
+        selections_list = selection_list_main 
+    
+#  win list is assigned based on the game    
+        win_list = win_list_main  
+#  displays the intro information based on the option selected            
+        print(intro)  
+# displays the help information based on the option selected  
+        print(option_help)  
+
+        while True:
+# prompet user to enter his selection
+            playerChoice = input("Your Selection {}: ".format(selections_list))
+            playerChoice = playerChoice.upper()
+            
+# computer select randomly choices by rander the class computer to have a choice       
+            if playerChoice in selections_list:
+                computerChoice =  myComp.move()
+                
+# Display the user and computer entery choices                
+                print("Player Selection: {}".format(playerChoice))
+                print("Computer Selection: {}".format(computerChoice))
+
+# converts the player's and computer's choice into a tuple to 
+# compare it to win list                  
+                match = playerChoice, computerChoice
+           
+            # if both selections (player and computer) are the same                 
+                if playerChoice == computerChoice: 
+                    
+                    # tie count is added to the dictionary           
+                    result_count['ties'] += 1
+                    print("\nResult: Both are {}! So" \
+                          "that's a Tie!".format(playerChoice))
+                    
+                    # if the tuple is the same as the win_list       
+                elif match in win_list:
+# player wins and a player count is added to the dictionary  
+                    result_count['player'] += 1
+                    print("\nResult: The power of {} beats {}! You won!"\
+                          .format(playerChoice, computerChoice))
+                    
+                else:  
+                    result_count['computer'] += 1
+                    print("\nResult: The power of {} is stronger than {}!"\
+                          " You lost!".format(computerChoice, playerChoice))
+                    
+# Display the result or stats of the game
+                print("\n""=======  RSLT  ======="
+                         "\n USER  | COMPUTER | DRAW"
+                         "\n  {player}        {computer}        {ties}"
+                         "\n=======================".format(**result_count))
+                
+#  if player gets 3 points, he wins                    
+                if result_count['player'] == 3:  
+                    print("The game is DONE! ** User wins **!" \
+                          "Congratulations!")
+
+#  if computer gets 3 points, it wins                    
+                elif result_count['computer'] == 3:  
+                    print("The game is DONE! ** Computer win **! YOU LOST" )
+                    
+                   
+ #  if the user doesn't remember the rules, it will show them again when he type       
+            elif playerChoice == 'HELP' or playerChoice == 'help' : 
+                    print(option_help)
+                    
+# if the user want to save currently game session he can type save
+            elif playerChoice == 'SAVE' or playerChoice == 'save':
+                fileW = open("game_test.txt", "w")
+                fileW.write(str(win_list) + "\n" + str(result_count) + "\n")
+                fileW.close() 
+                input("Saved! Please press ENTER to continue ...")
+        
+ #  if the user wants to Quit the game, it will take him to main menu
+ 
+            elif playerChoice == 'QUIT' or playerChoice == 'quit': 
+                result_count['player'] = 0
+                result_count['computer'] = 0
+                result_count['ties'] = 0
+                input("I hope you enjoyed! Please press ENTER to continue ...")
+                break
+     
+            else:
+      #  if there's an invalid choice, the input will show again  
+              print("That's not a valid play. Check your spelling!")  
+      
+            
+# if option is 2 , retrieve the last score saved in text file            
+    elif option == '2':
+        try:
+            f = open('game_test.txt','r')
+            message = f.read()
+            print(message)
+            f.close()
+        except:
+            print("can't save your session")
+            
+# if option is 3 , exit the game             
+    elif option == '3':  
+      print("Bye Bye, See You again!")
+      exit()
+# if there's an invalid option, the menu will start again      
+    else:  
+      input("Invalid option. Try again ... Please press ENTER to continue")
+      
+      
+# return main menu     
+if __name__=='__main__':   
+    welcome()
+
+      
+      
